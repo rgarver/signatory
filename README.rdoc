@@ -1,10 +1,10 @@
 = signatory
 
-* http://github.com/#{github_username}/#{project_name}
+* http://github.com/profounder/signatory
 
 == DESCRIPTION:
 
-FIX (describe your package)
+A library to simplify interactions with the RightSignature API.  One of the primary goals of this library is to make the workflow clear to developers for using some of the more interesting features of the RightSignature system, eg: templates, document merges, and embedded signature frames.
 
 == FEATURES/PROBLEMS:
 
@@ -12,7 +12,52 @@ FIX (describe your package)
 
 == SYNOPSIS:
 
-  FIX (code sample of usage)
+  cred = Signatory::Credentials.load(File.open('rs.yml'))
+  if cred.oauth_ready? # true if access token is provided by the credential file otherwise false
+    # if you don't need to handle the credentials separately you can pass
+    # something that Signatory:Credentials can load instead
+    Signatory.credentials = cred
+
+    Signatory::Document.all # => List all documents
+    doc = Signatory::Document.find('XXXXXXXXXXX') # => Get document by id
+
+    ...
+
+    Signatory::Template.all # => List all templates
+    template = Signatory::Template.find('XXXXXXXXX') # => Get a template by id
+
+    merge_fields = {
+      :company_name => "ABC Corp.",
+      :percentage => '5.8%',
+      :term => '48 months',
+      :monthly_payback => '$30.00'
+    }
+
+    # If you aren't embedding then you should include email addresses. You can
+    # also use instances of Signatory::Signer
+    roles = [
+      {:name => "Ryan Garver"},
+      {:name => "Cary Dunn"}
+    ]
+
+    doc = template.build_document(merge_fields, roles)
+
+    signer = doc.signing_parties.first # Order matters.  Returns a Signatory::Signer
+
+    # Can be embedded with:
+    #
+    # <iframe src ="<%= signer.embed_url(:height => 500, :width => 700) %>"
+    #   width="700px" height="500px" frameborder="0" scrolling="no">
+    #  <p>Your browser does not support iframes.</p>
+    # </iframe>
+    #
+    # or use signer.embed_code(:height => 500, :width => 700) to generate the
+    # above code.  This will throw an exception if signer is not associated
+    # with a real document yet.
+  else
+    @consumer = cred.oauth_consumer
+    ... begin oauth workflow ...
+  end
 
 == REQUIREMENTS:
 
@@ -21,6 +66,10 @@ FIX (describe your package)
 == INSTALL:
 
 * FIX (sudo gem install, anything else)
+
+== THANKS:
+
+Special thanks to Cary Dunn at RightSignature for putting together a sample Rails app that formulated how the API should be used and introduced the embedded signing frame.
 
 == LICENSE:
 
