@@ -5,8 +5,18 @@ unless defined?(YAML)
   require 'yaml'
 end
 
-module Signatory
+class Signatory
   VERSION = '0.0.1'
+
+  class << self
+    def credentials=(creds)
+      if !creds.is_a?(Credentials)
+        creds = Credentials.load(creds)
+      end
+      @credentials = creds
+    end
+    def credentials; @credentials; end
+  end
 end
 
 require 'signatory/credentials'

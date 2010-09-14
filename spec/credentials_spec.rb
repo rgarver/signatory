@@ -7,4 +7,11 @@ describe Signatory::Credentials do
     creds.key.should == 'thekey'
     creds.secret.should == 'thesecret'
   end
+  
+  it "loads credentials from hash" do
+    hash = {:key => 'thekey', :secret => 'thesecret'}
+    creds = Signatory::Credentials.load(hash)
+    creds.key.should == 'thekey'
+    creds.secret.should == 'thesecret'
+  end
 end

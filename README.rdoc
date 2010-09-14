@@ -15,7 +15,7 @@ A library to simplify interactions with the RightSignature API.  One of the prim
   cred = Signatory::Credentials.load(File.open('rs.yml'))
   if cred.oauth_ready? # true if access token is provided by the credential file otherwise false
     # if you don't need to handle the credentials separately you can pass
-    # something that Signatory:Credentials can load instead
+    # something that Signatory:Credentials can load (hash or file) instead
     Signatory.credentials = cred
 
     Signatory::Document.all # => List all documents
