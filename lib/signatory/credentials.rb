@@ -1,4 +1,4 @@
-class Signatory
+module Signatory
   class Credentials
     attr_accessor :key, :secret
 

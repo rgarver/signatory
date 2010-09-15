@@ -7,7 +7,7 @@ end
 
 require 'httparty'
 
-class Signatory
+module Signatory
   include HTTParty
   base_uri 'https://rightsignature.com'
   format :xml
@@ -25,5 +25,7 @@ class Signatory
   end
 end
 
+require 'signatory/api/base'
 require 'signatory/credentials'
 require 'signatory/document'
+require 'signatory/template'

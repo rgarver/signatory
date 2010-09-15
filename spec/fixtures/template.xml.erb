@@ -1,0 +1,28 @@
+<template>
+  <thumbnail-url>https://thumbnail.png</thumbnail-url>
+  <merge-fields>
+  <merge-field>
+  <page>1</page>
+  <name>Employee Name</name>
+  <id><%= options[:guid] || "a_951_5c0634d166d44916b9e0b3" %></id>
+  </merge-field>
+  </merge-fields>
+  <message>Please sign this document.</message>
+  <created-at>2009-10-28T19:03:26-07:00</created-at>
+  <roles>
+  <role>
+  <must-sign>false</must-sign>
+  <document-role-id>cc_A</document-role-id>
+  <role>Document Sender</role>
+  <is-sender>true</is-sender>
+  </role>
+    <role>
+    </role>
+  </roles>
+  <size>3524</size>
+  <subject><%= options[:subject] || "Employment Application Template" %></subject>
+  <guid><%= options[:guid] || "a_951_5c0634d166d44916b9e0b3" %></guid>
+  <processing-state>done-processing</processing-state>
+  <content-type>pdf</content-type>
+  <filename>Application.pdf</filename>
+</template>

@@ -1,0 +1,13 @@
+<templates>
+  <% options[:templates].each do |template| %>
+    <template>
+      <thumbnail-url>https://thumbnail.png</thumbnail-url>
+      <message>Please sign this document.</message>
+      <created-at>2009-11-04T14:01:30-08:00</created-at>
+      <subject><%= template[:subject] || "Employment Application Template" %></subject>
+      <guid><%= template[:guid] || "a_951_5c0634d166d44916b9e0b3" %></guid>
+      <processing-state>done-processing</processing-state>
+      <filename>application.pdf</filename>
+    </template>
+  <% end %>
+</templates>
