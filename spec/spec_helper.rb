@@ -1,5 +1,6 @@
+require 'rubygems'
 require 'stringio'
-require 'spec'
+require 'rspec'
 begin
   require 'webmock/rspec'
 rescue LoadError
@@ -13,11 +14,12 @@ end
 
 require File.dirname(__FILE__) + '/../lib/signatory'
 
-Spec::Runner.configure do |config|
-  config.include WebMock
-  config.include RightSignatureStub
+Rspec.configure do |c|
+  c.mock_with :rspec
+  c.include WebMock
+  c.include RightSignatureStub
 
-  config.before(:each) do
+  c.before(:each) do
     stub_request(:any, /^https:\/\/rightsignature.com/)
   end
 end

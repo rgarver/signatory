@@ -5,13 +5,7 @@ unless defined?(YAML)
   require 'yaml'
 end
 
-require 'httparty'
-
 module Signatory
-  include HTTParty
-  base_uri 'https://rightsignature.com'
-  format :xml
-
   VERSION = '0.0.1'
 
   class << self

@@ -1,60 +1,28 @@
+require 'active_resource'
+
 module Signatory
   module API
-    class Base
-      def initialize(args)
-        @args = args
-      end
-
-      def method_missing(name)
-        @args[name.to_s]
-      end
+    class Base < ActiveResource::Base
+      self.site = 'https://rightsignature.com/api/'
 
       def id
         guid
       end
 
       class << self
-        def inherited(base)
-          name = base.name.split('::').last.downcase
-          plural_name = name + 's'
-
-          base.base_path "/api/#{plural_name}"
-          base.trim_collection_xml plural_name, name
-          base.trim_member_xml name
-        end
-
-        def base_path(path)
-          @base_path = path
-        end
-
-        def trim_collection_xml(*prefix)
-          @collection_xml_prefix = prefix
-        end
-
-        def trim_member_xml(*prefix)
-          @member_xml_prefix = prefix
-        end
-
-        def all
-          parse_collection(Signatory.get("#{@base_path}.xml"))
-        end
-
-        def find(id)
-          parse(Signatory.get("#{@base_path}/#{id}.xml"))
-        end
-
-        def parse_collection(collection)
-          [trim_prefix(collection, @collection_xml_prefix)].flatten.map do |d|
-            parse(d)
+        def instantiate_collection(collection, opts)
+          if collection.has_key?(formatted_collection_name)
+            collection = collection[formatted_collection_name]
           end
+          super([collection[formatted_name]].flatten, opts)
         end
 
-        def parse(member)
-          new(trim_prefix(member, @member_xml_prefix) || member)
+        def formatted_name
+          self.name.split('::').last.downcase
         end
 
-        def trim_prefix(hash, prefix)
-          prefix.inject(hash){|acc, val| acc[val.to_s]}
+        def formatted_collection_name
+          self.name.split('::').last.downcase.pluralize
         end
       end
     end

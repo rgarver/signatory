@@ -14,12 +14,17 @@ $hoe = Hoe.spec 'signatory' do
   self.developer 'Ryan Garver', 'ragarver@gmail.com'
   self.post_install_message = 'PostInstall.txt' # TODO remove if post-install message not required
   self.rubyforge_name       = self.name # TODO this is default value
-  self.extra_deps           = [['httparty','~> 0.6.1']]
+  self.extra_deps           = [['activeresource','>= 2.3.4']]
   self.extra_dev_deps       = [['webmock', '~>1.35']]
 end
 
 require 'newgem/tasks'
 Dir['tasks/**/*.rake'].each { |t| load t }
+
+require 'rspec/core/rake_task'
+RSpec::Core::RakeTask.new do |t|
+  t.rspec_opts = ['--colour', '--format', 'progress']
+end
 
 # TODO - want other tests/tasks run by default? Add them to the list
 remove_task :default
