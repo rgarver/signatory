@@ -20,6 +20,6 @@ Rspec.configure do |c|
   c.include RightSignatureStub
 
   c.before(:each) do
-    stub_request(:any, /^https:\/\/rightsignature.com/)
+    # stub_request(:any, /^https:\/\/rightsignature.com/)
   end
 end

@@ -42,6 +42,16 @@ module RightSignatureStub
     )
   end
 
+  def stub_prepackage(tid, id, options = {})
+    options = {
+      :guid => id
+    }.merge(options)
+
+    stub_request(:post, "https://rightsignature.com/api/templates/#{tid}/prepackage.xml").to_return(
+      :body => ERB.new(fixture('template_prepackage.xml.erb')).result(binding)
+    )
+  end
+
   def fixture(name)
     File.read(File.join(File.dirname(__FILE__), '..', 'fixtures', name))
   end
