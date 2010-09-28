@@ -22,4 +22,11 @@ describe Signatory do
       Signatory.credentials.secret.should == 'secret1'
     end
   end
+  
+  it "uses oauth" do
+    token = Signatory.credentials.token
+    token.should_receive(:get).with('/api/documents/123.xml', {"Accept"=>"application/xml"}).and_return(mock('result', :code => 200, :body => '<document><name>Test</name></document>'))
+
+    Signatory::Document.find('123')
+  end
 end

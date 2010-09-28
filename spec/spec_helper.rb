@@ -20,6 +20,6 @@ Rspec.configure do |c|
   c.include RightSignatureStub
 
   c.before(:each) do
-    # stub_request(:any, /^https:\/\/rightsignature.com/)
+    Signatory.credentials = {:key => 'key1', :secret => 'secret1', :access_token => 'accesstoken', :access_secret => 'accesssecret'}
   end
 end

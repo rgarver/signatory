@@ -9,6 +9,10 @@ unless defined?(OAuth)
   require 'oauth'
 end
 
+unless defined?(ActiveResource)
+  require 'active_resource'
+end
+
 module Signatory
   VERSION = '0.0.1'
 
@@ -23,6 +27,7 @@ module Signatory
   end
 end
 
+require 'signatory/api/connection'
 require 'signatory/api/base'
 require 'signatory/credentials'
 require 'signatory/document'
