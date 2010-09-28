@@ -64,7 +64,7 @@ describe Signatory::Template do
     describe ".prefill_and_send" do
       it "returns the sent document" do
         doc_pkg = Signatory::Template.new(:guid => 'templid')
-        roles = [{:name => "Ryan Garver"}, {:name => "Cary Dunn"}]
+        roles = [Signatory::Role.new(:name => "Ryan Garver", :role_name => 'Issuer'), Signatory::Role.new(:name => "Cary Dunn", :role_name => 'Investor')]
         merge_fields = {'Company Name' => 'ABC Corp'}
 
         id, subject = rand.to_s, "Subject #{rand}"

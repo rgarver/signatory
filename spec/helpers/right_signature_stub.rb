@@ -52,7 +52,11 @@ module RightSignatureStub
 
       sent['guid'] == id &&
       sent['action'] == 'send' &&
-      options[:roles].all? {|role| sent['roles']['role'].map{|r| r['name']}.include?(role[:name]) } &&
+      options[:roles].all? { |role|
+        sent['roles']['role'].map{|r|
+          "#{r['name']}:#{r['email']}"
+        }.include?("#{role.name}:#{role.email}")
+      } &&
       options[:merge_fields].all? {|k, v| sent['merge_fields']['merge_field'].map{|mf| mf['value']}.include?(v) }
     end.to_return(:body => ERB.new(fixture('template_sent.xml.erb')).result(binding))
   end
