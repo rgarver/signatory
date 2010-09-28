@@ -49,9 +49,6 @@ module RightSignatureStub
 
     stub_request(:post, "https://rightsignature.com/api/templates.xml").with do |req|
       sent = Hash.from_xml(req.body)['template']
-      puts options.inspect
-      puts sent.inspect
-      puts options[:merge_fields].all? {|k, v| sent['merge_fields']['merge_field'].map{|mf| mf['value']}.include?(v) }
 
       sent['guid'] == id &&
       sent['action'] == 'send' &&

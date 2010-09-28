@@ -5,6 +5,10 @@ unless defined?(YAML)
   require 'yaml'
 end
 
+unless defined?(OAuth)
+  require 'oauth'
+end
+
 module Signatory
   VERSION = '0.0.1'
 
