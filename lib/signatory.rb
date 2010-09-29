@@ -29,3 +29,8 @@ require 'signatory/template'
 require 'signatory/role'
 require 'signatory/merge_field'
 require 'signatory/recipient'
+
+require 'active_resource/version'
+if ActiveResource::VERSION::STRING < '3.0.0'
+  require 'signatory/legacy_active_resource_hacks'
+end
