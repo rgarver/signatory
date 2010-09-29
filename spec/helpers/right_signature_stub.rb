@@ -57,7 +57,11 @@ module RightSignatureStub
           "#{r['name']}:#{r['email']}"
         }.include?("#{role.name}:#{role.email}")
       } &&
-      options[:merge_fields].all? {|k, v| sent['merge_fields']['merge_field'].map{|mf| mf['value']}.include?(v) }
+      options[:merge_fields].all? {|field|
+        [sent['merge_fields']['merge_field']].flatten.map{|mf|
+          mf['value']
+        }.include?(field.value)
+      }
     end.to_return(:body => ERB.new(fixture('template_sent.xml.erb')).result(binding))
   end
 

@@ -12,12 +12,23 @@ module Signatory
 
     def prefill_and_send(merge_fields, roles)
       attributes.merge!({
-        :merge_fields => {:merge_field => merge_fields.map{|k, v| {:merge_field_name => k, :value => v}}},
-        :roles => {:role => roles},
+        :merge_fields => merge_fields,
+        :roles => roles,
         :action => 'send'
       })
+
       doc = connection.format.decode(connection.post("/api/templates.xml", self.to_xml).body)
       Document.find(doc['guid'])
+    end
+
+    def to_xml(opts = {})
+      super(opts.merge(:dasherize => false, :skip_types => true, :except => [:pages, :_type, :redirect_token, :content_type, :size, :tags])) do |b|
+        b.tag!(:tags) do
+          tags.split(" ").each do |tag|
+            b.tag!(:tag) { b.value tag}
+          end
+        end unless attributes['tags'].blank?
+      end
     end
 
     private
