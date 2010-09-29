@@ -8,8 +8,6 @@ require 'oauth'           unless defined?(OAuth)
 require 'active_resource' unless defined?(ActiveResource)
 
 module Signatory
-  VERSION = '0.0.1'
-
   class << self
     def credentials=(creds)
       if !creds.is_a?(Credentials)
@@ -21,6 +19,7 @@ module Signatory
   end
 end
 
+require 'signatory/version'
 require 'signatory/api/connection'
 require 'signatory/api/base'
 require 'signatory/credentials'
