@@ -13,7 +13,7 @@ describe Signatory::Recipient do
         :email => "noemail@rightsignature.com"
       )
       recipient.document = doc
-      stub_request(:get, "https://rightsignature.com/api/documents/XXXXX/signer_links.xml?redirect_location=http%253A%252F%252Fexample.com").
+      stub_request(:get, "https://rightsignature.com/api/documents/XXXXX/signer_links.xml?redirect_location=http%3A%2F%2Fexample.com").
         to_return(:body => "
           <document>
             <signer_links>

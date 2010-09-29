@@ -6,7 +6,7 @@ describe Signatory::MergeField do
       mf = Signatory::MergeField.new(:name=>"Company Name", :value=>"Double Rainbow, Inc.")
       xml = mf.to_xml
 
-      xml.should =~ /<merge-field merge_field_name="Company Name">/
+      xml.should =~ /<merge_field merge_field_name="Company Name">/
       hash = Hash.from_xml(xml)
       hash['merge_field']['value'].should == "Double Rainbow, Inc."
       hash['merge_field']['locked'].should == "true"
@@ -16,7 +16,7 @@ describe Signatory::MergeField do
       mf = Signatory::MergeField.new(:id=>"a_233_f309f82jklnm_232", :value=>"Double Rainbow, Inc.")
       xml = mf.to_xml
 
-      xml.should =~ /<merge-field merge_field_id="a_233_f309f82jklnm_232">/
+      xml.should =~ /<merge_field merge_field_id="a_233_f309f82jklnm_232">/
       hash = Hash.from_xml(xml)
       hash['merge_field']['value'].should == "Double Rainbow, Inc."
       hash['merge_field']['locked'].should == "true"

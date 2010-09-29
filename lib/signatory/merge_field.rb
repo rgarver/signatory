@@ -13,7 +13,7 @@ module Signatory
       require 'builder' unless defined? ::Builder
       options[:indent] ||= 2
       xml = options[:builder] ||= ::Builder::XmlMarkup.new(:indent => options[:indent])
-      xml.tag!('merge-field', identifier) do
+      xml.tag!('merge_field', identifier) do
         if attributes['value'].nil?
           xml.page page
           xml.name name

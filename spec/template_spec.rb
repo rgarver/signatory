@@ -65,7 +65,7 @@ describe Signatory::Template do
       it "returns the sent document" do
         doc_pkg = Signatory::Template.new(:guid => 'templid')
         roles = [Signatory::Role.new(:name => "Ryan Garver", :role_name => 'Issuer'), Signatory::Role.new(:name => "Cary Dunn", :role_name => 'Investor')]
-        merge_fields = {'Company Name' => 'ABC Corp'}
+        merge_fields = [Signatory::MergeField.new(:name => 'Company Name', :value => 'ABC Corp')]
 
         id, subject = rand.to_s, "Subject #{rand}"
         stub_template_send('templid', id, :roles => roles, :merge_fields => merge_fields)
