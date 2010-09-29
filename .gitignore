@@ -1,2 +1,4 @@
 \.tmtags
-.bundle/*
+pkg/*
+*.gem
+.bundle
