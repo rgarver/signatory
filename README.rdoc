@@ -55,7 +55,6 @@ A library to simplify interactions with the RightSignature API.  One of the prim
     # above code.  This will throw an exception if signer is not associated
     # with a real document yet.
   else
-    @consumer = cred.oauth_consumer
     ... begin oauth workflow ...
   end
 
