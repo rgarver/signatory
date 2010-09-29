@@ -26,18 +26,18 @@ A library to simplify interactions with the RightSignature API.  One of the prim
     Signatory::Template.all # => List all templates
     template = Signatory::Template.find('XXXXXXXXX') # => Get a template by id
 
-    merge_fields = {
-      :company_name => "ABC Corp.",
-      :percentage => '5.8%',
-      :term => '48 months',
-      :monthly_payback => '$30.00'
-    }
+    merge_fields = [
+      Signatory::MergeField.new(:name => "Company Name", :value => "ABC Corp."),
+      Signatory::MergeField.new(:name => "Percentage", :value => "5.8%"),
+      Signatory::MergeField.new(:name => "Term", :value => "48 months"),
+      Signatory::MergeField.new(:name => "Monthly Payback", :value => "$30.00")
+    ]
 
     # If you aren't embedding then you should include email addresses. You can
     # also use instances of Signatory::Signer
     roles = [
-      {:name => "Ryan Garver"},
-      {:name => "Cary Dunn"}
+      Signatory::Role.new(:role_name => 'Issuer', :name => 'Ryan Garver'),
+      Signatory::Role.new(:role_name => 'Investor', :name => 'Cary Dunn')
     ]
 
     doc = template.build_document(merge_fields, roles)

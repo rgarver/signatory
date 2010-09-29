@@ -12,8 +12,15 @@ module Signatory
       options[:indent] ||= 2
       xml = options[:builder] ||= ::Builder::XmlMarkup.new(:indent => options[:indent])
       xml.role(identifier) do
-        xml.name name
-        xml.email email
+        if attributes['name'].nil?
+          xml.tag!('must-sign', must_sign)
+          xml.tag!('document-role-id', document_role_id)
+          xml.role role
+          xml.tag!('is-sender', is_sender)
+        else
+          xml.name name
+          xml.email email
+        end
       end
     end
   end
