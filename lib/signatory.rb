@@ -1,21 +1,13 @@
 $:.unshift(File.dirname(__FILE__)) unless
   $:.include?(File.dirname(__FILE__)) || $:.include?(File.expand_path(File.dirname(__FILE__)))
 
-unless defined?(YAML)
-  require 'yaml'
-end
-
-unless defined?(OAuth)
-  require 'oauth'
-end
-
-unless defined?(ActiveResource)
-  require 'active_resource'
-end
+require 'rubygems'
+require 'bundler/setup'
+require 'yaml'            unless defined?(YAML)
+require 'oauth'           unless defined?(OAuth)
+require 'active_resource' unless defined?(ActiveResource)
 
 module Signatory
-  VERSION = '0.0.1'
-
   class << self
     def credentials=(creds)
       if !creds.is_a?(Credentials)
@@ -27,6 +19,7 @@ module Signatory
   end
 end
 
+require 'signatory/version'
 require 'signatory/api/connection'
 require 'signatory/api/base'
 require 'signatory/credentials'
@@ -35,3 +28,8 @@ require 'signatory/template'
 require 'signatory/role'
 require 'signatory/merge_field'
 require 'signatory/recipient'
+
+require 'active_resource/version'
+if ActiveResource::VERSION::STRING < '3.0.0'
+  require 'signatory/legacy_active_resource_hacks'
+end
