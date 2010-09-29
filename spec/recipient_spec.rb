@@ -24,24 +24,24 @@ describe Signatory::Recipient do
         </document>
       ")
   end
-  
+
   describe ".embed_url" do
-    it "generates the right url" do    
+    it "generates the right url" do
       @recipient.embed_url('http://example.com').should == "https://rightsignature.com/signatures/embedded?rt=YYYY"
     end
-    
+
     it "generates the right url with dimensions" do
-      @recipient.embed_url('http://example.com', :height => 500, :width => 600).should == "https://rightsignature.com/signatures/embedded?rt=YYYY&height=500&width=600"
+      @recipient.embed_url('http://example.com', :height => 500, :width => 600).should == "https://rightsignature.com/signatures/embedded?height=500&rt=YYYY&width=600"
     end
   end
-  
+
   describe ".embed_code" do
-    it "generates the right iframe code" do    
+    it "generates the right iframe code" do
       @recipient.embed_code('http://example.com').should == '<iframe src ="https://rightsignature.com/signatures/embedded?rt=YYYY" frameborder="0" scrolling="no"><p>Your browser does not support iframes.</p></iframe>'
     end
-    
+
     it "generates the right iframe code with dimensions" do
-      @recipient.embed_code('http://example.com', :height => 500, :width => 600).should == '<iframe src ="https://rightsignature.com/signatures/embedded?rt=YYYY&height=500&width=600" frameborder="0" scrolling="no" width="600px" height="500px"><p>Your browser does not support iframes.</p></iframe>'
+      @recipient.embed_code('http://example.com', :height => 500, :width => 600).should == '<iframe src ="https://rightsignature.com/signatures/embedded?height=500&rt=YYYY&width=600" frameborder="0" scrolling="no" width="600px" height="500px"><p>Your browser does not support iframes.</p></iframe>'
     end
   end
 end

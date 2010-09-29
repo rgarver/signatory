@@ -10,7 +10,7 @@ module Signatory
         s['role'] == role_id
       end.first
       options.merge!(:rt => signer['signer_token'])
-      params = options.map{|k,v| "#{k}=#{v}"}.flatten.join('&')
+      params = options.sort.map{|k,v| "#{k}=#{v}"}.flatten.join('&')
       "https://rightsignature.com/signatures/embedded?#{params}"
     end
 
