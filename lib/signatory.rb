@@ -1,17 +1,11 @@
 $:.unshift(File.dirname(__FILE__)) unless
   $:.include?(File.dirname(__FILE__)) || $:.include?(File.expand_path(File.dirname(__FILE__)))
 
-unless defined?(YAML)
-  require 'yaml'
-end
-
-unless defined?(OAuth)
-  require 'oauth'
-end
-
-unless defined?(ActiveResource)
-  require 'active_resource'
-end
+require 'rubygems'
+require 'bundler/setup'
+require 'yaml'            unless defined?(YAML)
+require 'oauth'           unless defined?(OAuth)
+require 'active_resource' unless defined?(ActiveResource)
 
 module Signatory
   VERSION = '0.0.1'
