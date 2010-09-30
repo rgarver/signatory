@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency "bundler", "= 1.0.0"
   s.add_dependency "oauth", "= 0.4.3"
-  s.add_dependency "activeresource", "3.0.0"
+  s.add_dependency "activeresource", ">= 2.3.9"
 
   s.files        = `git ls-files`.split("\n")
   s.executables  = `git ls-files`.split("\n").map{|f| f =~ /^bin\/(.*)/ ? $1 : nil}.compact
