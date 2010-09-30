@@ -1,8 +1,8 @@
 PATH
   remote: .
   specs:
-    signatory (0.0.1)
-      activeresource (= 3.0.0)
+    signatory (0.0.2)
+      activeresource (>= 2.3.9)
       bundler (= 1.0.0)
       oauth (= 0.4.3)
 
@@ -41,7 +41,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activeresource (= 3.0.0)
+  activeresource (>= 2.3.9)
   bundler (= 1.0.0)
   oauth (= 0.4.3)
   rspec (= 2.0.0.beta.22)

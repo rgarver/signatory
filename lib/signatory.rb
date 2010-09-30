@@ -1,7 +1,7 @@
 $:.unshift(File.dirname(__FILE__)) unless
   $:.include?(File.dirname(__FILE__)) || $:.include?(File.expand_path(File.dirname(__FILE__)))
 
-require 'ruby_hacks'
+require 'signatory/ruby_hacks'
 require 'rubygems'
 require 'bundler/setup'
 require 'yaml'            unless defined?(YAML)
