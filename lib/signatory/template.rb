@@ -12,9 +12,9 @@ module Signatory
 
     def prefill_and_send(merge_fields, roles)
       attributes.merge!({
-        :merge_fields => merge_fields,
-        :roles => roles,
-        :action => 'send'
+        'merge_fields' => merge_fields,
+        'roles' => roles,
+        'action' => 'send'
       })
 
       doc = connection.format.decode(connection.post("/api/templates.xml", self.to_xml).body)

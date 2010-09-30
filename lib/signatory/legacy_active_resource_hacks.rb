@@ -25,6 +25,13 @@ module Signatory
         end
       end
 
+      def to_xml(options={})
+        fixed_attrs = attributes.clone
+        options[:except].each do |k|
+          fixed_attrs.delete(k.to_s)
+        end
+        fixed_attrs.to_xml({:root => self.class.element_name}.merge(options)){|b| yield(b) if block_given?}
+      end
     end
   end
 end
