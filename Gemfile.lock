@@ -1,9 +1,9 @@
 PATH
   remote: .
   specs:
-    signatory (0.0.2)
+    signatory (0.0.4)
       activeresource (>= 2.3.9)
-      bundler (= 1.0.0)
+      bundler (>= 1.0.0)
       oauth (= 0.4.3)
 
 GEM
@@ -16,6 +16,7 @@ GEM
     crack (0.1.8)
     diff-lcs (1.1.2)
     oauth (0.4.3)
+    rake (0.8.7)
     rspec (2.0.0.beta.22)
       rspec-core (= 2.0.0.beta.22)
       rspec-expectations (= 2.0.0.beta.22)
@@ -35,8 +36,9 @@ PLATFORMS
 
 DEPENDENCIES
   activeresource (>= 2.3.9)
-  bundler (= 1.0.0)
+  bundler (>= 1.0.0)
   oauth (= 0.4.3)
+  rake
   rspec (= 2.0.0.beta.22)
   signatory!
   webmock (= 1.3.5)
