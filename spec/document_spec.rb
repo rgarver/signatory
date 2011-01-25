@@ -32,4 +32,39 @@ describe Signatory::Document do
       doc.subject.should == 'Test number 2'
     end
   end
+
+  describe "#extend_expiration" do
+    before do
+      stub_request(:post, "https://rightsignature.com/api/documents/XXXXX/extend_expiration").
+        to_return(:body => "")
+    end
+
+    it "should post to the correct action" do
+      stub_document('XXXXX')
+      doc = Signatory::Document.find('XXXXX')
+      Signatory::Document.connection.should_receive(:post).with(:extend_expiration)
+      doc.extend_expiration
+    end
+  end
+
+  describe "#extend_expiration!" do
+    before :each do
+      stub_document('XXXXX')
+      @doc = Signatory::Document.find('XXXXX')
+    end
+
+    it "should extend the expiration date" do
+      @doc.stub!(:extend_expiration)
+      @doc.stub!(:reload)
+      @doc.should_receive(:extend_expiration)
+      @doc.extend_expiration!
+    end
+
+    it "should reload the document" do
+      @doc.stub!(:extend_expiration)
+      @doc.stub!(:reload)
+      @doc.should_receive(:reload)
+      @doc.extend_expiration!
+    end
+  end
 end
