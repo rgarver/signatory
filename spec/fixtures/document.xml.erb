@@ -47,5 +47,5 @@
   <processing-state>done-processing</processing-state>
   <original-url>https://originaldoc.doc</original-url>
   <content-type>package</content-type>
-  <expires-on>2009-11-06T16:00:00-08:00</expires-on>
+  <expires-on><%= options[:expires_on] && options[:expires_on].iso8601 ||  '2009-11-06T16:00:00-08:00' %></expires-on>
 </document>

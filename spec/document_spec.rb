@@ -67,4 +67,18 @@ describe Signatory::Document do
       @doc.extend_expiration!
     end
   end
+
+  describe "#expired?" do
+    it "should return true if the expires_on date is in the past" do
+      stub_document('XXXXX', :expires_on => 7.days.ago)
+      @doc = Signatory::Document.find('XXXXX')
+      @doc.expired?.should be_true
+    end
+
+    it "should return false if the expires_on date is in the future" do
+      stub_document('XXXXX', :expires_on => 7.days.from_now)
+      @doc = Signatory::Document.find('XXXXX')
+      @doc.expired?.should be_false
+    end
+  end
 end
