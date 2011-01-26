@@ -2,12 +2,7 @@ module Signatory
   class Document < API::Base
 
     def extend_expiration
-      connection.post(:extend_expiration)
-    end
-
-    def extend_expiration!
-      extend_expiration
-      reload
+      connection.post("#{self.class.site}documents/#{id}/extend_expiration")
     end
 
     def expired?
