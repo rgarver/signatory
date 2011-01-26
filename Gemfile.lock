@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    signatory (0.0.4)
+    signatory (0.0.6)
       activeresource (>= 2.3.9)
       bundler (>= 1.0.0)
       oauth (= 0.4.3)
