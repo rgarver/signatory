@@ -49,6 +49,7 @@ module RightSignatureStub
 
     stub_request(:post, "https://rightsignature.com/api/templates.xml").with do |req|
       sent = Hash.from_xml(req.body)['template']
+      deep_match(sent, options[:match]) if options[:match].present?
 
       sent['guid'] == id &&
       sent['action'] == 'send' &&
@@ -77,5 +78,16 @@ module RightSignatureStub
 
   def fixture(name)
     File.read(File.join(File.dirname(__FILE__), '..', 'fixtures', name))
+  end
+
+  def deep_match(source, matching)
+    matching.each do |k, v|
+      source.should have_key(k)
+      if v.is_a?(String)
+        source[k].should include(v)
+      elsif v.is_a?(Hash)
+        deep_match(source[k], v)
+      end
+    end
   end
 end

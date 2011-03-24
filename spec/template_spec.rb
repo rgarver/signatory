@@ -38,7 +38,7 @@ describe Signatory::Template do
   describe ".build_document" do
     it "returns a new document" do
       temp = Signatory::Template.new(:guid => 'xxxyyy', :subject => 'Blah blah')
-      doc_pkg = Signatory::Template.new(:guid => 'abcabc', :type => 'DocumentPackage')
+      doc_pkg = Signatory::DocumentPackage.new(:guid => 'abcabc', :type => 'DocumentPackage')
       doc = Signatory::Document.new
       
       roles = [{:name => "Ryan Garver"}, {:name => "Cary Dunn"}]
@@ -52,28 +52,22 @@ describe Signatory::Template do
     end
   end
   
-  context "type = DocumentPackage" do
-    describe ".signing_parties" do
-      it "returns all of the roles that must sign"
+  describe "#merge_fields" do
+    it "returns empty array when there are none" do
+      stub_template('123', :no_merge_fields => true)
+      templ = Signatory::Template.find('123')
+
+      templ.merge_fields.should be_a(Array)
+      templ.merge_fields.should be_empty
     end
 
-    describe ".sender" do
-      it "returns the role who sent the document"
-    end
+    it "returns array with one merge field when there is one" do
+      stub_template('123', :one_merge_field => true)
+      templ = Signatory::Template.find('123')
 
-    describe ".prefill_and_send" do
-      it "returns the sent document" do
-        doc_pkg = Signatory::Template.new(:guid => 'templid')
-        roles = [Signatory::Role.new(:name => "Ryan Garver", :role_name => 'Issuer'), Signatory::Role.new(:name => "Cary Dunn", :role_name => 'Investor')]
-        merge_fields = [Signatory::MergeField.new(:name => 'Company Name', :value => 'ABC Corp')]
-
-        id, subject = rand.to_s, "Subject #{rand}"
-        stub_template_send('templid', id, :roles => roles, :merge_fields => merge_fields)
-        stub_document(id, :subject => subject)
-        doc = doc_pkg.prefill_and_send(merge_fields, roles)
-        doc.guid.should == id
-        doc.subject.should == subject
-      end
+      templ.merge_fields.should be_a(Array)
+      templ.merge_fields.should_not be_empty
+      templ.merge_fields[0].should be_a(Signatory::MergeField)
     end
   end
 end

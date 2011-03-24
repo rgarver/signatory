@@ -1,28 +1,39 @@
 <template>
   <thumbnail-url>https://thumbnail.png</thumbnail-url>
-  <merge-fields>
-    <merge-field>
-      <page>1</page>
-      <name>Employee Name</name>
-      <id><%= options[:guid] || "a_951_5c0634d166d44916b9e0b3" %></id>
-    </merge-field>
-  </merge-fields>
+  <% unless options[:no_merge_fields] %>
+    <merge-fields>
+      <merge-field>
+        <page>1</page>
+        <name>Employee Name</name>
+        <id><%= options[:guid] || "a_951_5c0634d166d44916b9e0b3" %></id>
+      </merge-field>
+      <% if options[:one_merge_field] %>
+        <merge-field>
+          <page>1</page>
+          <name>Employee Title</name>
+          <id><%= options[:guid] || "a_951_5c0634d166d44916b9e0b3" %></id>
+        </merge-field>
+      <% end %>
+    </merge-fields>
+  <% end %>
   <message>Please sign this document.</message>
   <created-at>2009-10-28T19:03:26-07:00</created-at>
-  <roles>
-    <role>
-      <must-sign>false</must-sign>
-      <document-role-id>cc_A</document-role-id>
-      <role>Document Sender</role>
-      <is-sender>true</is-sender>
-    </role>
-    <role>
-      <must-sign>true</must-sign>
-      <document-role-id>cc_B</document-role-id>
-      <role>Employer</role>
-      <is-sender>false</is-sender>
-    </role>
-  </roles>
+  <% unless options[:no_roles] %>
+    <roles>
+      <role>
+        <must-sign>false</must-sign>
+        <document-role-id>cc_A</document-role-id>
+        <role>Document Sender</role>
+        <is-sender>true</is-sender>
+      </role>
+      <role>
+        <must-sign>true</must-sign>
+        <document-role-id>cc_B</document-role-id>
+        <role>Employer</role>
+        <is-sender>false</is-sender>
+      </role>
+    </roles>
+  <% end %>
   <size>3524</size>
   <subject><%= options[:subject] || "Employment Application Template" %></subject>
   <guid><%= options[:guid] || "a_951_5c0634d166d44916b9e0b3" %></guid>

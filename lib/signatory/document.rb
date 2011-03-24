@@ -1,5 +1,6 @@
 module Signatory
   class Document < API::Base
+    has_many :recipients
 
     def extend_expiration
       connection.post("#{self.class.site}documents/#{id}/extend_expiration")
@@ -11,11 +12,9 @@ module Signatory
 
     private
     def self.instantiate_record(record, opts = {})
-      record['recipients'] = [record['recipients']['recipient']].flatten unless record['recipients'].nil? || record['recipients'].is_a?(Array)
-
-      doc = super(record, opts)
-      doc.recipients.each {|r| r.document = doc } if doc.respond_to?(:recipients)
-      doc
+      super(record, opts).tap do |doc|
+        doc.recipients.each {|r| r.document = doc }
+      end
     end
   end
 end

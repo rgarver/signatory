@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.rubyforge_project         = "signatory"
 
   s.add_development_dependency "bundler", ">= 1.0.0"
-  s.add_development_dependency "rspec", "= 2.0.0.beta.22"
+  s.add_development_dependency "rspec", "= 2.5.0"
   s.add_development_dependency "webmock", "= 1.3.5"
 
   s.add_dependency "bundler", ">= 1.0.0"
