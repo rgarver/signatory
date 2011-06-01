@@ -11,7 +11,7 @@ module Signatory
         def escape_url_attrs(*attrs)
           attrs.each do |attr|
             define_method attr do
-              CGI::unescape(attributes[attr])
+              CGI::unescape(attributes[attr]) unless Signatory.credentials.api_version == '1.0'
             end
           end
         end

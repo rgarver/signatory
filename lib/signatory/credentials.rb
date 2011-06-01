@@ -1,9 +1,10 @@
 module Signatory
   class Credentials
-    attr_accessor :key, :secret, :access_token, :access_secret
+    attr_accessor :key, :secret, :access_token, :access_secret, :api_version
 
-    def initialize(key, secret, access_token, access_secret)
-      @key, @secret, @access_token, @access_secret = key, secret, access_token, access_secret
+    def initialize(key, secret, access_token, access_secret, api_version='1.2')
+      $stderr.puts "Deprecation Warning: Signatory is now compatible with RightSignature API version 1.2, you have chosen #{api_version}.  Please upgrade." if api_version != '1.2'
+      @key, @secret, @access_token, @access_secret, @api_version = key, secret, access_token, access_secret, api_version
     end
 
     def self.load(source)
@@ -13,7 +14,7 @@ module Signatory
         source.inject({}){ |acc, (k, v)| acc[k.to_s] = v; acc}
       end
 
-      new(h['key'], h['secret'], h['access_token'], h['access_secret'])
+      new(h['key'], h['secret'], h['access_token'], h['access_secret'], h['api_version']||'1.2')
     end
 
     def token
