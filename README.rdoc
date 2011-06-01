@@ -6,6 +6,8 @@
 
 A library to simplify interactions with the RightSignature API.  One of the primary goals of this library is to make the workflow clear to developers for using some of the more interesting features of the RightSignature system, eg: templates, document merges, and embedded signature frames.
 
+Now requires the 1.1 or 1.2 api versions.  Handles the double URL escaping on documents and templates.
+
 == FEATURES/PROBLEMS:
 
 * FIX (list of features or problems)
@@ -57,6 +59,9 @@ A library to simplify interactions with the RightSignature API.  One of the prim
   else
     ... begin oauth workflow ...
   end
+
+If you need some debugging output (I have) try this:
+  Signatory::Document.connection.send(:http).consumer.http.set_debug_output($stderr)
 
 == REQUIREMENTS:
 

@@ -60,4 +60,12 @@ describe Signatory::Document do
       @doc.expired?.should be_false
     end
   end
+
+  describe "#signed_pdf_url" do
+    it "should return a valid url" do
+      stub_document("XXXX")
+      doc = Signatory::Document.find("XXXX")
+      doc.signed_pdf_url.should =~ /^https:\/\//
+    end
+  end
 end

@@ -1,6 +1,7 @@
 module Signatory
   class Document < API::Base
     has_many :recipients
+    escape_url_attrs :signed_pdf_url, :pdf_url, :original_url, :thumbnail_url
 
     def extend_expiration
       connection.post("#{self.class.site}documents/#{id}/extend_expiration")

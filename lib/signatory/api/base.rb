@@ -8,6 +8,14 @@ module Signatory
       end
 
       class << self
+        def escape_url_attrs(*attrs)
+          attrs.each do |attr|
+            define_method attr do
+              CGI::unescape(attributes[attr])
+            end
+          end
+        end
+
         def has_many(sym)
           self.write_inheritable_attribute(:__has_many, (read_inheritable_attribute(:__has_many)||[])+[sym])
         end

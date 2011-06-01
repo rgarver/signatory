@@ -4,6 +4,7 @@ module Signatory
   class Template < API::Base
     has_many :roles
     has_many :merge_fields
+    escape_url_attrs :thumbnail_url
 
     def prepackage
       record = connection.format.decode(post(:prepackage).body)
