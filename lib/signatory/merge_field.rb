@@ -14,7 +14,7 @@ module Signatory
       options[:indent] ||= 2
       xml = options[:builder] ||= ::Builder::XmlMarkup.new(:indent => options[:indent])
       xml.tag!('merge_field', identifier) do
-        if attributes['value'].nil?
+        if attributes.has_key?(:page)
           xml.page page
           xml.name name
           xml.id id
