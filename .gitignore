@@ -3,3 +3,4 @@ pkg/*
 *.gem
 .bundle
 *.swp
+*.rbc
