@@ -11,7 +11,11 @@ module Signatory
         def escape_url_attrs(*attrs)
           attrs.each do |attr|
             define_method attr do
-              CGI::unescape(attributes[attr]) unless Signatory.credentials.api_version == '1.0'
+              if Signatory.credentials.api_version == '1.0' || attributes[attr].blank?
+                attributes[attr]
+              else
+                CGI::unescape(attributes[attr])
+              end
             end
           end
         end

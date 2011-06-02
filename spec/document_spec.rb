@@ -67,5 +67,11 @@ describe Signatory::Document do
       doc = Signatory::Document.find("XXXX")
       doc.signed_pdf_url.should =~ /^https:\/\//
     end
+
+    it "should return blank when it's blank" do
+      stub_document("XXXX", :signed_pdf_url => '')
+      doc = Signatory::Document.find("XXXX")
+      doc.signed_pdf_url.should be_nil
+    end
   end
 end
