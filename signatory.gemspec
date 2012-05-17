@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.version     = Signatory::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Ryan Garver"]
-  s.email       = ["ryan@profounder.com"]
+  s.email       = ["ragarver@gmail.com"]
   s.homepage    = "http://rubygems.org/gems/signatory"
   s.summary     = "API wrapper for RightSignature"
   s.description = "Signatory provides a simple wrapper around the RightSignature API."

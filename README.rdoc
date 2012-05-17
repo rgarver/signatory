@@ -1,6 +1,8 @@
 = signatory
 
-* http://github.com/profounder/signatory
+* http://github.com/rgarver/signatory
+
+formerly profounder/signatory
 
 == DESCRIPTION:
 
@@ -65,11 +67,17 @@ If you need some debugging output (I have) try this:
 
 == REQUIREMENTS:
 
-* FIX (list of requirements)
+Depends on the gems `oauth` and `activeresource`
 
 == INSTALL:
 
-* FIX (sudo gem install, anything else)
+From the command line:
+
+  gem install signatory
+
+From `bundler`:
+
+  gem 'signatory'
 
 == THANKS:
 
@@ -79,7 +87,7 @@ Special thanks to Cary Dunn at RightSignature for putting together a sample Rail
 
 (The MIT License)
 
-Copyright (c) 2010 Ryan Garver
+Copyright (c) 2012 Ryan Garver
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
