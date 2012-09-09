@@ -4,6 +4,8 @@
 
 formerly profounder/signatory
 
+{<img src="https://secure.travis-ci.org/rgarver/signatory.png" />}[http://travis-ci.org/rgarver/signatory]
+
 == DESCRIPTION:
 
 A library to simplify interactions with the RightSignature API.  One of the primary goals of this library is to make the workflow clear to developers for using some of the more interesting features of the RightSignature system, eg: templates, document merges, and embedded signature frames.
