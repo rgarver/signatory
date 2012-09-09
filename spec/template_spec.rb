@@ -14,7 +14,7 @@ describe Signatory::Template do
       subjects.should include("Template Subject 2")
     end
   end
-  
+
   describe ".find by id" do
     it "returns the template with the specified id" do
       stub_template('xxxyyy', :subject => 'Blah blah')
@@ -22,36 +22,36 @@ describe Signatory::Template do
       temp.subject.should == 'Blah blah'
     end
   end
-  
+
   describe ".prepackage" do
     it "should have roles and merge fields" do
       temp = Signatory::Template.new(:guid => 'xxxyyy', :subject => 'Blah blah')
       stub_prepackage('xxxyyy', 'yyyxxx')
       packaged_temp = temp.prepackage
-      
+
       packaged_temp.roles.map(&:role).should include('Employer')
       packaged_temp.merge_fields.map(&:name).should include('Company Name')
       packaged_temp.id.should == 'yyyxxx'
     end
   end
-  
+
   describe ".build_document" do
     it "returns a new document" do
       temp = Signatory::Template.new(:guid => 'xxxyyy', :subject => 'Blah blah')
       doc_pkg = Signatory::DocumentPackage.new(:guid => 'abcabc', :type => 'DocumentPackage')
       doc = Signatory::Document.new
-      
+
       roles = [{:name => "Ryan Garver"}, {:name => "Cary Dunn"}]
       merge_fields = {'Company Name' => 'ABC Corp'}
-      
+
       temp.should_receive(:prepackage).and_return(doc_pkg)
       doc_pkg.should_receive(:prefill_and_send).with(merge_fields, roles).and_return(doc)
-      
+
       result = temp.build_document(merge_fields, roles)
       result.should == doc
     end
   end
-  
+
   describe "#merge_fields" do
     it "returns empty array when there are none" do
       stub_template('123', :no_merge_fields => true)
