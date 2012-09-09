@@ -2,9 +2,17 @@ module Signatory
   module API
     class Base < ActiveResource::Base
       self.site = 'https://rightsignature.com/api/'
+      self.format = :xml
+      self.headers["User-Agent"] = "Ruby/Signatory #{Signatory::VERSION}"
+      set_primary_key :guid
+      class_attribute :__has_many if respond_to?(:class_attribute)
 
       def id
         guid
+      end
+
+      def persisted?
+        attributes[:guid].present?
       end
 
       class << self
@@ -20,16 +28,30 @@ module Signatory
           end
         end
 
-        def has_many(sym)
-          self.write_inheritable_attribute(:__has_many, (read_inheritable_attribute(:__has_many)||[])+[sym])
-        end
-
-        def instantiate_record(record, opts={})
-          (self.read_inheritable_attribute(:__has_many)||[]).each do |sym|
-            record[sym.to_s] = [record[sym.to_s].try(:[],sym.to_s.singularize)].flatten.compact unless record[sym.to_s].is_a?(Array)
+        if respond_to?(:class_attribute)
+          def has_many(sym)
+            self.__has_many = (self.__has_many || []) + [sym]
           end
 
-          super(record, opts)
+          def instantiate_record(record, opts={})
+            (self.__has_many||[]).each do |sym|
+              record[sym.to_s] = [record[sym.to_s].try(:[],sym.to_s.singularize)].flatten.compact unless record[sym.to_s].is_a?(Array)
+            end
+
+            super(record, opts)
+          end
+        else
+          def has_many(sym)
+            self.write_inheritable_attribute(:__has_many, (read_inheritable_attribute(:__has_many)||[])+[sym])
+          end
+
+          def instantiate_record(record, opts={})
+            (self.read_inheritable_attribute(:__has_many)||[]).each do |sym|
+              record[sym.to_s] = [record[sym.to_s].try(:[],sym.to_s.singularize)].flatten.compact unless record[sym.to_s].is_a?(Array)
+            end
+
+            super(record, opts)
+          end
         end
 
         def instantiate_collection(collection, opts)
@@ -49,7 +71,8 @@ module Signatory
 
         def connection(refresh = false)
           if defined?(@connection) || superclass == Object
-            @connection = Signatory::API::Connection.new(site, format) if refresh || @connection.nil?
+            @connection = Signatory::API::Connection.new(site, format) if !@_signatory_connection || refresh || @connection.nil?
+            @_signatory_connection = true
             @connection.proxy = proxy if proxy
             @connection.user = user if user
             @connection.password = password if password

@@ -17,6 +17,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "bundler", ">= 1.0.0"
   s.add_development_dependency "rspec", "= 2.5.0"
   s.add_development_dependency "webmock", "= 1.3.5"
+  s.add_development_dependency "debugger"
 
   s.add_dependency "bundler", ">= 1.0.0"
   s.add_dependency "oauth", "= 0.4.3"

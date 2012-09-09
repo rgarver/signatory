@@ -1,4 +1,5 @@
 require 'rubygems'
+require 'debugger'
 require 'stringio'
 require 'rspec'
 begin
