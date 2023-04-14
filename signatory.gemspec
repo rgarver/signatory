@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "debugger"
 
   s.add_dependency "bundler", ">= 1.0.0"
-  s.add_dependency "oauth", "= 0.4.3"
+  s.add_dependency "oauth", "= 1.1.0"
   s.add_dependency "activeresource", ">= 2.3.9"
 
   s.files        = `git ls-files`.split("\n")
